@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm8h3fagfk07"]
+
+[ext_resource type="Texture2D" uid="uid://cyvcr3ikrn41h" path="res://PORTAL BLUE-Sheet.png" id="1_0r486"]
+[ext_resource type="Script" uid="uid://ctre6m33n3pri" path="res://portal.gd" id="1_ef3v5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ef3v5"]
+radius = 21.0
+height = 68.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_grrij"]
+atlas = ExtResource("1_0r486")
+region = Rect2(0, 0, 56, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6r214"]
+atlas = ExtResource("1_0r486")
+region = Rect2(448, 0, 56, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2pgh4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_grrij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6r214")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[node name="Portal" type="Area2D"]
+script = ExtResource("1_ef3v5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ef3v5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.8571428, 1.8571435)
+sprite_frames = SubResource("SpriteFrames_2pgh4")
+animation = &"idle"
+autoplay = "idle"
+frame = 1
+frame_progress = 0.17137758
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

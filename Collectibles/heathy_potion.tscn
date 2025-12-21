@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw11h4nxh4s2c"]
+
+[ext_resource type="Script" uid="uid://c27f8eqbal1mh" path="res://Collectibles/heathy_potion.gd" id="1_sf2mw"]
+[ext_resource type="Texture2D" uid="uid://5k1ths4dwko2" path="res://potions/tile_0_2.png" id="1_vy02t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4pebf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sf2mw"]
+atlas = ExtResource("1_vy02t")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vy02t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sf2mw")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[node name="heathy_potion" type="Area2D"]
+script = ExtResource("1_sf2mw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4pebf")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(1.1406249, 1.211914)
+sprite_frames = SubResource("SpriteFrames_vy02t")
+animation = &"idle"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

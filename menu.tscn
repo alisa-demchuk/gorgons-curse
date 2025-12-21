@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://ce6e4qyrqc6ch"]
+
+[ext_resource type="Script" uid="uid://dcy7xswtljspj" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://d1cihigrta4t6" path="res://start.png" id="2_mae5d"]
+[ext_resource type="Texture2D" uid="uid://c3wwjxl8piybq" path="res://exit.png" id="3_4hy44"]
+[ext_resource type="PackedScene" uid="uid://bjm4ytwswjfpg" path="res://bg_menu.tscn" id="4_4hy44"]
+[ext_resource type="AudioStream" uid="uid://bhiewime673ho" path="res://Средневековье.mp3" id="5_ytr4m"]
+
+[node name="Menu" type="Node2D"]
+script = ExtResource("1_lti8b")
+
+[node name="Start" type="Button" parent="."]
+offset_left = 433.0
+offset_top = 161.0
+offset_right = 692.0
+offset_bottom = 260.0
+theme_override_font_sizes/font_size = 50
+text = "Start"
+
+[node name="Start2" type="Sprite2D" parent="Start"]
+position = Vector2(127, 47)
+scale = Vector2(0.505452, 0.497685)
+texture = ExtResource("2_mae5d")
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 418.0
+offset_top = 373.0
+offset_right = 707.433
+offset_bottom = 469.0
+theme_override_font_sizes/font_size = 50
+text = "Exit"
+
+[node name="Exit2" type="Sprite2D" parent="Exit"]
+position = Vector2(141, 42)
+scale = Vector2(0.516776, 0.516776)
+texture = ExtResource("3_4hy44")
+
+[node name="Bg_menu" parent="." instance=ExtResource("4_4hy44")]
+
+[node name="bg_music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ytr4m")
+autoplay = true
+
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
