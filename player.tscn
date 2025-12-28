@@ -469,6 +469,7 @@ position = Vector2(1, -1)
 sprite_frames = SubResource("SpriteFrames_7lmhl")
 animation = &"attack"
 autoplay = "idle"
+frame = 7
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)

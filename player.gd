@@ -3,8 +3,6 @@ extends CharacterBody2D
 enum {
 	MOVE,
 	ATTACK,
-	BLOCK,
-	SLIDE
 }
 
 const SPEED = 300.0
@@ -25,13 +23,9 @@ func _physics_process(delta: float) -> void:
 	
 	match state:
 		MOVE:
-			pass
+			move_state()
 		ATTACK:
-			pass
-		BLOCK:
-			pass
-		SLIDE:
-			pass
+			attack_state()
 		
 	
 	# Add the gravity.
@@ -50,24 +44,8 @@ func _physics_process(delta: float) -> void:
 		if position.y >= max_depth:
 			queue_free()
 			get_tree().change_scene_to_file("res://menu.tscn")			
-			
-		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
-		var direction := Input.get_axis("left", "right")
-		if direction:
-			velocity.x = direction * SPEED
-			if velocity.y == 0:
-				animPlayer.play("run")
-		else:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
-			if velocity.y == 0:
-				animPlayer.play("idle")
-		
-		if direction == -1:
-			anim.flip_h = true 
-		elif direction == 1:
-			anim.flip_h = false
-			
+
+
 		if health <= 0:
 			alive = false
 			animPlayer.play("death")
@@ -80,3 +58,27 @@ func _physics_process(delta: float) -> void:
 			get_tree().change_scene_to_file("res://level.tscn")
 
 		move_and_slide()
+
+func move_state():
+	var direction := Input.get_axis("left", "right")
+	
+	if direction:
+		velocity.x = direction * SPEED
+		if velocity.y == 0:
+			animPlayer.play("run")
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if velocity.y == 0:
+			animPlayer.play("idle")
+	if direction == -1:
+		anim.flip_h = true 
+	elif direction == 1:
+		anim.flip_h = false
+	if Input.is_action_just_pressed("attack"):
+		state = ATTACK
+		
+func attack_state():
+	velocity.x = 0
+	animPlayer.play("attack")
+	await animPlayer.animation_finished
+	state = MOVE
