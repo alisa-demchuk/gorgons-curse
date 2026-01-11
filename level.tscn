@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=4 uid="uid://blpms41pixkux"]
 
 [ext_resource type="Texture2D" uid="uid://c7ocsv3mye83m" path="res://dark_bg.png" id="1_0b4ue"]
-[ext_resource type="PackedScene" uid="uid://cpe7labxgysl7" path="res://player.tscn" id="1_u52ul"]
+[ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://player.tscn" id="1_u52ul"]
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="3_1ainy"]
 [ext_resource type="Texture2D" uid="uid://d0u3j7n3a87ht" path="res://Base-01.png" id="3_oi3di"]
 [ext_resource type="PackedScene" uid="uid://pu368swgwbq4" path="res://Mobs/gorgon.tscn" id="4_0b4ue"]

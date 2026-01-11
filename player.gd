@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 			
 		if telep == 0:
 			telep = -1
-			get_tree().change_scene_to_file("res://level.tscn")
+			get_tree().change_scene_to_file("res://level_2.tscn")
 
 		move_and_slide()
 

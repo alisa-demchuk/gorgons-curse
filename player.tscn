@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://cpe7labxgysl7"]
+[gd_scene load_steps=53 format=3 uid="uid://bvyoybt8licco"]
 
 [ext_resource type="Script" uid="uid://byilspu2x3svn" path="res://player.gd" id="1_hqtel"]
 [ext_resource type="Texture2D" uid="uid://cpm6nyjyq170u" path="res://Character/Idle/Idle-Sheet.png" id="1_i3pqv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cc4yyxs4fmi4g" path="res://Character/Jump-Start/Jump-Start-Sheet.png" id="2_hqtel"]
 [ext_resource type="Texture2D" uid="uid://34p3ondpxdjk" path="res://Character/Jumlp-All/Jump-All-Sheet.png" id="2_sweqy"]
 [ext_resource type="Texture2D" uid="uid://dfv3lxvgnihyw" path="res://Character/Run/Run-Sheet.png" id="3_sweqy"]
+[ext_resource type="Texture2D" uid="uid://1uc3luioqu06" path="res://circle.png" id="8_dw050"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
 radius = 9.0
@@ -458,6 +459,9 @@ _data = {
 &"run": SubResource("Animation_ivps1")
 }
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dw050"]
+polygon = PackedVector2Array(-12, 22, 15, 22, 15, 23, -12, 23)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_hqtel")
 
@@ -484,3 +488,14 @@ drag_horizontal_enabled = true
 libraries = {
 &"": SubResource("AnimationLibrary_1jxqw")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 9.536743e-07)
+scale = Vector2(0.0625, 0.06250001)
+color = Color(0.92156863, 0.90588236, 0.13333334, 1)
+energy = 0.3
+shadow_enabled = true
+texture = ExtResource("8_dw050")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_dw050")
