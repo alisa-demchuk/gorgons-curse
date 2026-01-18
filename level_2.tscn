@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=4 uid="uid://cdnwkk5vtyrac"]
+[gd_scene load_steps=13 format=4 uid="uid://cdnwkk5vtyrac"]
 
+[ext_resource type="Script" uid="uid://hck2na3sebew" path="res://level_2.gd" id="1_0s5r2"]
 [ext_resource type="Texture2D" uid="uid://bnu6pon6q4qcc" path="res://oak_woods_v1.0/bg_3.png" id="1_jg0dc"]
 [ext_resource type="PackedScene" uid="uid://bofpbmu0qddv" path="res://Build/shop.tscn" id="2_1y8me"]
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="2_nmjpi"]
@@ -829,7 +830,45 @@ sources/0 = SubResource("TileSetAtlasSource_xdadj")
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_n7ypv"]
 polygon = PackedVector2Array(2, 641, 1407, 643, 1406, 792, -1, 789)
 
+[sub_resource type="Animation" id="Animation_0s5r2"]
+resource_name = "day_text"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 4.9666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.41628975, 0.41628975, 0.41628975, 0), Color(0.41628975, 0.41628975, 0.41628975, 1), Color(0.41628975, 0.41628975, 0.41628975, 1), Color(0.41568628, 0.41568628, 0.41568628, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7j8ne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.41628975, 0.41628975, 0.41628975, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7dov7"]
+_data = {
+&"RESET": SubResource("Animation_7j8ne"),
+&"day_text": SubResource("Animation_0s5r2")
+}
+
 [node name="level 2" type="Node2D"]
+script = ExtResource("1_0s5r2")
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 
@@ -849,22 +888,47 @@ tile_set = SubResource("TileSet_jg0dc")
 position = Vector2(113, 443)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
-energy = 0.4
+position = Vector2(-2, 7)
+enabled = false
+energy = 0.95
 blend_mode = 1
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 position = Vector2(564, 578)
-scale = Vector2(0.28499997, 0.28499997)
+scale = Vector2(0.32999992, 0.32999992)
 color = Color(0.972549, 0.8, 0.6666667, 1)
 shadow_enabled = true
 texture = ExtResource("5_n7ypv")
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 position = Vector2(746, 576)
-scale = Vector2(0.28499997, 0.28499997)
+scale = Vector2(0.33750004, 0.33750004)
 color = Color(0.972549, 0.8, 0.6666667, 1)
 shadow_enabled = true
 texture = ExtResource("5_n7ypv")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_n7ypv")
+
+[node name="DayNight" type="Timer" parent="."]
+wait_time = 30.0
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DayText" type="Label" parent="CanvasLayer"]
+modulate = Color(0.41628975, 0.41628975, 0.41628975, 0)
+offset_left = 480.0
+offset_top = 233.0
+offset_right = 823.6213
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "DAY"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+libraries = {
+&"": SubResource("AnimationLibrary_7dov7")
+}
+
+[connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
