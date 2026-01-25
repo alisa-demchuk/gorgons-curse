@@ -30,6 +30,8 @@ animations = [{
 }]
 
 [node name="Portal" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
 script = ExtResource("1_ef3v5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

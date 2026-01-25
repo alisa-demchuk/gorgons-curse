@@ -405,6 +405,8 @@ size = Vector2(24.5, 7)
 size = Vector2(64, 12)
 
 [node name="Gorgon" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 3
 script = ExtResource("1_yqkcg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
