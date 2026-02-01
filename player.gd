@@ -18,6 +18,7 @@ var health = 100
 var gold = 0
 var telep = 1
 var state = MOVE
+var player_pos
 
 func _physics_process(delta: float) -> void:
 	
@@ -58,6 +59,9 @@ func _physics_process(delta: float) -> void:
 			get_tree().change_scene_to_file("res://level_2.tscn")
 
 		move_and_slide()
+		
+	player_pos = self.position
+	Signals.emit_signal("player_position_update", player_pos)
 
 func move_state():
 	var direction := Input.get_axis("left", "right")
