@@ -23,6 +23,10 @@ Signals="*res://signals.gd"
 
 enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
 
+[filesystem]
+
+import/fbx2gltf/enabled=false
+
 [input]
 
 left={
@@ -62,6 +66,8 @@ block={
 2d_physics/layer_3="enemies"
 2d_physics/layer_4="collettibles"
 2d_physics/layer_5="portals"
+2d_physics/layer_6="playerHurtBox"
+2d_physics/layer_7="enemyHurtBox"
 
 [rendering]
 

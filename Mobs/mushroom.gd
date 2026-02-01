@@ -54,7 +54,11 @@ func chase_state():
 	direction = (player - self.position).normalized()
 	if direction.x < 0:
 		sprite.flip_h = true
-		#$AttackDirection.rotation_degrees = 180
+		$AttackDirection.rotation_degrees = 180
 	else:
 		sprite.flip_h = false
-		#$AttackDirection.rotation_degrees = 0
+		$AttackDirection.rotation_degrees = 0
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	pass # Replace with function body.
