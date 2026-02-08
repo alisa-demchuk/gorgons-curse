@@ -18,9 +18,11 @@ var state: int = 0:
 var player
 var direction
 @onready var sprite = $AnimatedSprite2D
+var damage = 20
 
 func _ready():
 	Signals.connect("player_position_update", Callable(self, "_on_player_position_update"))
+	#Signals.connect("player_death", Callable (self, "_on_player_death"))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -61,4 +63,4 @@ func chase_state():
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
-	pass # Replace with function body.
+	Signals.emit_signal("enemy_attack", damage)

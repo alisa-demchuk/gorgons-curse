@@ -3,6 +3,7 @@ extends CharacterBody2D
 enum {
 	MOVE,
 	ATTACK,
+	DEATH
 }
 
 const SPEED = 300.0
@@ -20,6 +21,9 @@ var telep = 1
 var state = MOVE
 var player_pos
 
+func _ready() -> void:
+	Signals.connect("enemy_attack", Callable(self, "_on_damage_recevied"))
+
 func _physics_process(delta: float) -> void:
 	
 	match state:
@@ -27,7 +31,8 @@ func _physics_process(delta: float) -> void:
 			move_state()
 		ATTACK:
 			attack_state()
-		
+		DEATH:
+			death_state()
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -45,18 +50,11 @@ func _physics_process(delta: float) -> void:
 		if position.y >= max_depth:
 			queue_free()
 			get_tree().change_scene_to_file("res://menu.tscn")			
-
-
-		if health <= 0:
-			alive = false
-			animPlayer.play("death")
-			await anim.animation_finished
-			queue_free()
-			get_tree().change_scene_to_file("res://menu.tscn")
 			
 		if telep == 0:
 			telep = -1
 			get_tree().change_scene_to_file("res://level_2.tscn")
+
 
 		move_and_slide()
 		
@@ -81,8 +79,23 @@ func move_state():
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
 		
+func death_state ():
+	velocity.x = 0
+	animPlayer.play("death")
+	await animPlayer.animation_finished
+	queue_free()
+	get_tree().change_scene_to_file.bind("res://menu.tscn").call_deferred()
+		
 func attack_state():
 	velocity.x = 0
 	animPlayer.play("attack")
 	await animPlayer.animation_finished
 	state = MOVE
+
+func _on_damage_recevied (enemy_damage):
+	health -= enemy_damage
+	if health <= 0:
+		health = 0
+		state = DEATH
+
+	print(health)

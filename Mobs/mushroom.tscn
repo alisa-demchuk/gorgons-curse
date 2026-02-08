@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dw7akdxqew3ww"]
+[gd_scene load_steps=46 format=3 uid="uid://dw7akdxqew3ww"]
 
 [ext_resource type="Script" uid="uid://duo3guem2yyb8" path="res://Mobs/mushroom.gd" id="1_selrt"]
 [ext_resource type="Texture2D" uid="uid://bh0d5havxwfrb" path="res://Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="1_sjuu0"]
@@ -262,6 +262,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.63),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="Animation_selrt"]
 length = 0.6666667
@@ -374,8 +386,24 @@ tracks/1/keys = {
 "values": ["run"]
 }
 
+[sub_resource type="Animation" id="Animation_768lt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_768lt"]
 _data = {
+&"RESET": SubResource("Animation_768lt"),
 &"attack": SubResource("Animation_sjuu0"),
 &"damage": SubResource("Animation_selrt"),
 &"death": SubResource("Animation_ufykn"),
@@ -399,6 +427,7 @@ position = Vector2(1, -11)
 scale = Vector2(1.16, 1.1600001)
 sprite_frames = SubResource("SpriteFrames_jq103")
 animation = &"attack"
+frame = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
