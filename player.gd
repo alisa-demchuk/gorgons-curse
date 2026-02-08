@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal health_changed (new_health)
+	
+
 enum {
 	MOVE,
 	ATTACK,
@@ -15,7 +18,8 @@ var max_depth = 700
 @onready var anim = $AnimatedSprite2D
 @onready var animPlayer = $AnimationPlayer
 
-var health = 100
+var max_health = 100
+var health = max_health
 var gold = 0
 var telep = 1
 var state = MOVE
@@ -97,5 +101,5 @@ func _on_damage_recevied (enemy_damage):
 	if health <= 0:
 		health = 0
 		state = DEATH
-
+	emit_signal("health_changed", health)
 	print(health)

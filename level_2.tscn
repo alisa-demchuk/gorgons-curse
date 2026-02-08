@@ -1,12 +1,15 @@
-[gd_scene load_steps=14 format=4 uid="uid://cdnwkk5vtyrac"]
+[gd_scene load_steps=17 format=4 uid="uid://cdnwkk5vtyrac"]
 
 [ext_resource type="Script" uid="uid://hck2na3sebew" path="res://level_2.gd" id="1_0s5r2"]
 [ext_resource type="Texture2D" uid="uid://bnu6pon6q4qcc" path="res://oak_woods_v1.0/bg_3.png" id="1_jg0dc"]
 [ext_resource type="PackedScene" uid="uid://bofpbmu0qddv" path="res://Build/shop.tscn" id="2_1y8me"]
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="2_nmjpi"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://player.tscn" id="3_xdadj"]
-[ext_resource type="Texture2D" uid="uid://1uc3luioqu06" path="res://circle.png" id="5_n7ypv"]
+[ext_resource type="Texture2D" path="res://circle.png" id="5_n7ypv"]
+[ext_resource type="Texture2D" uid="uid://bnhmcson3kbv7" path="res://assets/Sprite-0003.png" id="6_15wb7"]
 [ext_resource type="PackedScene" uid="uid://dw7akdxqew3ww" path="res://Mobs/mushroom.tscn" id="7_7j8ne"]
+[ext_resource type="Texture2D" uid="uid://c4abfv6u6g138" path="res://assets/Sprite-0001.png" id="7_eoq84"]
+[ext_resource type="Texture2D" uid="uid://rcormb58j031" path="res://assets/Sprite-0002.png" id="8_yl73a"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdadj"]
 texture = ExtResource("2_nmjpi")
@@ -930,6 +933,20 @@ libraries = {
 &"": SubResource("AnimationLibrary_7dov7")
 }
 
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer"]
+self_modulate = Color(1, 1, 1, 0.7254902)
+offset_left = 51.0
+offset_top = 25.0
+offset_right = 209.0
+offset_bottom = 52.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("6_15wb7")
+texture_over = ExtResource("7_eoq84")
+texture_progress = ExtResource("8_yl73a")
+tint_over = Color(0.2695876, 0.31709182, 0.40530357, 1)
+tint_progress = Color(0.7411765, 0.18431373, 0.14901961, 1)
+
 [node name="Mobs" type="Node2D" parent="."]
 
 [node name="Mushroom" parent="Mobs" instance=ExtResource("7_7j8ne")]
@@ -939,3 +956,4 @@ position = Vector2(508, 605)
 position = Vector2(113, 443)
 
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
+[connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]

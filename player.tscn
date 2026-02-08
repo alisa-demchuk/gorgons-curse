@@ -11,8 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://uercqttiolli" path="res://DamageBox/damage_box.tscn" id="9_b26j0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
-radius = 9.0
-height = 46.0
+radius = 16.0
+height = 44.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_efrwb"]
 atlas = ExtResource("2_1jxqw")
@@ -469,14 +469,15 @@ collision_mask = 25
 script = ExtResource("1_hqtel")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource("CapsuleShape2D_2hs0m")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -1)
+position = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_7lmhl")
 animation = &"death"
 autoplay = "idle"
+frame = 7
+frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -493,7 +494,8 @@ libraries = {
 }
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, 9.536743e-07)
+visible = false
+position = Vector2(-3, -2)
 scale = Vector2(0.0625, 0.06250001)
 color = Color(0.92156863, 0.90588236, 0.13333334, 1)
 energy = 0.3
@@ -506,6 +508,7 @@ occluder = SubResource("OccluderPolygon2D_dw050")
 [node name="AttackDirection" type="Node2D" parent="."]
 
 [node name="DamageBox" parent="AttackDirection" instance=ExtResource("9_b26j0")]
+visible = false
 
 [node name="HurtBox" parent="AttackDirection/DamageBox" index="0"]
 collision_layer = 32
