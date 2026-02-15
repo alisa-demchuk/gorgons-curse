@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bofpbmu0qddv" path="res://Build/shop.tscn" id="2_1y8me"]
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="2_nmjpi"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://player.tscn" id="3_xdadj"]
-[ext_resource type="Texture2D" path="res://circle.png" id="5_n7ypv"]
+[ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="5_15wb7"]
 [ext_resource type="Texture2D" uid="uid://bnhmcson3kbv7" path="res://assets/Sprite-0003.png" id="6_15wb7"]
 [ext_resource type="PackedScene" uid="uid://dw7akdxqew3ww" path="res://Mobs/mushroom.tscn" id="7_7j8ne"]
 [ext_resource type="Texture2D" uid="uid://c4abfv6u6g138" path="res://assets/Sprite-0001.png" id="7_eoq84"]
@@ -900,14 +900,14 @@ position = Vector2(564, 578)
 scale = Vector2(0.32999992, 0.32999992)
 color = Color(0.972549, 0.8, 0.6666667, 1)
 shadow_enabled = true
-texture = ExtResource("5_n7ypv")
+texture = ExtResource("5_15wb7")
 
 [node name="PointLight2D2" type="PointLight2D" parent="."]
 position = Vector2(746, 576)
 scale = Vector2(0.33750004, 0.33750004)
 color = Color(0.972549, 0.8, 0.6666667, 1)
 shadow_enabled = true
-texture = ExtResource("5_n7ypv")
+texture = ExtResource("5_15wb7")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_n7ypv")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://bvyoybt8licco"]
+[gd_scene load_steps=55 format=3 uid="uid://bvyoybt8licco"]
 
 [ext_resource type="Script" uid="uid://byilspu2x3svn" path="res://player.gd" id="1_hqtel"]
 [ext_resource type="Texture2D" uid="uid://cpm6nyjyq170u" path="res://Character/Idle/Idle-Sheet.png" id="1_i3pqv"]
@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cc4yyxs4fmi4g" path="res://Character/Jump-Start/Jump-Start-Sheet.png" id="2_hqtel"]
 [ext_resource type="Texture2D" uid="uid://34p3ondpxdjk" path="res://Character/Jumlp-All/Jump-All-Sheet.png" id="2_sweqy"]
 [ext_resource type="Texture2D" uid="uid://dfv3lxvgnihyw" path="res://Character/Run/Run-Sheet.png" id="3_sweqy"]
-[ext_resource type="Texture2D" uid="uid://1uc3luioqu06" path="res://circle.png" id="8_dw050"]
+[ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="8_b26j0"]
 [ext_resource type="PackedScene" uid="uid://uercqttiolli" path="res://DamageBox/damage_box.tscn" id="9_b26j0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2hs0m"]
@@ -311,6 +311,18 @@ tracks/1/keys = {
 "update": 1,
 "values": ["attack"]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.28, 0.52, 0.65),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true]
+}
 
 [sub_resource type="Animation" id="Animation_dw050"]
 tracks/0/type = "value"
@@ -450,8 +462,24 @@ tracks/1/keys = {
 "values": ["run"]
 }
 
+[sub_resource type="Animation" id="Animation_urp6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jxqw"]
 _data = {
+&"RESET": SubResource("Animation_urp6f"),
 &"attack": SubResource("Animation_1jxqw"),
 &"death": SubResource("Animation_dw050"),
 &"fall": SubResource("Animation_b26j0"),
@@ -474,10 +502,9 @@ shape = SubResource("CapsuleShape2D_2hs0m")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_7lmhl")
-animation = &"death"
+animation = &"attack"
 autoplay = "idle"
 frame = 7
-frame_progress = 1.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -500,7 +527,7 @@ scale = Vector2(0.0625, 0.06250001)
 color = Color(0.92156863, 0.90588236, 0.13333334, 1)
 energy = 0.3
 shadow_enabled = true
-texture = ExtResource("8_dw050")
+texture = ExtResource("8_b26j0")
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
 occluder = SubResource("OccluderPolygon2D_dw050")
@@ -508,7 +535,6 @@ occluder = SubResource("OccluderPolygon2D_dw050")
 [node name="AttackDirection" type="Node2D" parent="."]
 
 [node name="DamageBox" parent="AttackDirection" instance=ExtResource("9_b26j0")]
-visible = false
 
 [node name="HurtBox" parent="AttackDirection/DamageBox" index="0"]
 collision_layer = 32
@@ -517,5 +543,7 @@ collision_mask = 0
 [node name="HitBox" parent="AttackDirection/DamageBox" index="1"]
 collision_layer = 0
 collision_mask = 64
+
+[connection signal="area_entered" from="AttackDirection/DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
 
 [editable path="AttackDirection/DamageBox"]

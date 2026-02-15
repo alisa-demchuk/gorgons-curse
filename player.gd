@@ -24,6 +24,7 @@ var gold = 0
 var telep = 1
 var state = MOVE
 var player_pos
+var damage_current = 10
 
 func _ready() -> void:
 	Signals.connect("enemy_attack", Callable(self, "_on_damage_recevied"))
@@ -78,8 +79,10 @@ func move_state():
 			animPlayer.play("idle")
 	if direction == -1:
 		anim.flip_h = true 
+		$AttackDirection.rotation_degrees = 180
 	elif direction == 1:
 		anim.flip_h = false
+		$AttackDirection.rotation_degrees = 0
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
 		
@@ -103,3 +106,7 @@ func _on_damage_recevied (enemy_damage):
 		state = DEATH
 	emit_signal("health_changed", health)
 	print(health)
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	Signals.emit_signal("player_attack", damage_current)
