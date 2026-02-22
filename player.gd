@@ -100,12 +100,12 @@ func attack_state():
 	state = MOVE
 
 func _on_damage_recevied (enemy_damage):
-	health -= enemy_damage
-	if health <= 0:
-		health = 0
+	Global.player_health -= enemy_damage
+	if Global.player_health <= 0:
+		Global.player_health = 0
 		state = DEATH
-	emit_signal("health_changed", health)
-	print(health)
+	emit_signal("health_changed", Global.player_health)
+	print(Global.player_health)
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:

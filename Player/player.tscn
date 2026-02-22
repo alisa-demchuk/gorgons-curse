@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://bvyoybt8licco"]
+[gd_scene format=3 uid="uid://bvyoybt8licco"]
 
 [ext_resource type="Script" uid="uid://byilspu2x3svn" path="res://player.gd" id="1_hqtel"]
 [ext_resource type="Texture2D" uid="uid://cpm6nyjyq170u" path="res://Character/Idle/Idle-Sheet.png" id="1_i3pqv"]
@@ -285,6 +285,21 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Animation" id="Animation_urp6f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_1jxqw"]
 length = 0.8
 tracks/0/type = "value"
@@ -462,21 +477,6 @@ tracks/1/keys = {
 "values": ["run"]
 }
 
-[sub_resource type="Animation" id="Animation_urp6f"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("AttackDirection/DamageBox/HitBox/CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1jxqw"]
 _data = {
 &"RESET": SubResource("Animation_urp6f"),
@@ -491,22 +491,22 @@ _data = {
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dw050"]
 polygon = PackedVector2Array(-12, 22, 15, 22, 15, 23, -12, 23)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=792919240]
 collision_layer = 2
 collision_mask = 25
 script = ExtResource("1_hqtel")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1012961756]
 shape = SubResource("CapsuleShape2D_2hs0m")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=10032790]
 position = Vector2(2, -2)
 sprite_frames = SubResource("SpriteFrames_7lmhl")
 animation = &"attack"
 autoplay = "idle"
 frame = 7
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=693704358]
 zoom = Vector2(2, 2)
 process_callback = 0
 limit_left = 0
@@ -515,12 +515,10 @@ limit_bottom = 675
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_1jxqw")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=136310615]
+libraries/ = SubResource("AnimationLibrary_1jxqw")
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=592397075]
 visible = false
 position = Vector2(-3, -2)
 scale = Vector2(0.0625, 0.06250001)
@@ -529,12 +527,12 @@ energy = 0.3
 shadow_enabled = true
 texture = ExtResource("8_b26j0")
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." unique_id=1041871914]
 occluder = SubResource("OccluderPolygon2D_dw050")
 
-[node name="AttackDirection" type="Node2D" parent="."]
+[node name="AttackDirection" type="Node2D" parent="." unique_id=1893993216]
 
-[node name="DamageBox" parent="AttackDirection" instance=ExtResource("9_b26j0")]
+[node name="DamageBox" parent="AttackDirection" unique_id=202555279 instance=ExtResource("9_b26j0")]
 
 [node name="HurtBox" parent="AttackDirection/DamageBox" index="0"]
 collision_layer = 32

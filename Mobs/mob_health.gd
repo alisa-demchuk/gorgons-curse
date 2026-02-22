@@ -18,12 +18,14 @@ var health = 100:
 		
 func _ready():
 		Signals.connect("player_attack", Callable(self, "_on_damage_received"))
+		damage_text.modulate.a = 0
 		health_bar.max_value = health
 		health_bar.visible = false
 
 func _on_damage_received (player_damage):
 	health -= player_damage
 	damage_text.text = str(player_damage)
+	animPlayer.stop()
 	animPlayer.play("damage_text")
 	if health <= 0:
 		emit_signal("no_health")
