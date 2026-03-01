@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://c6yofc17khg8b"]
+
+[ext_resource type="Texture2D" uid="uid://bnhmcson3kbv7" path="res://assets/Sprite-0003.png" id="1_37rai"]
+[ext_resource type="Texture2D" uid="uid://c4abfv6u6g138" path="res://assets/Sprite-0001.png" id="2_0qrqu"]
+[ext_resource type="Texture2D" uid="uid://rcormb58j031" path="res://assets/Sprite-0002.png" id="3_mx0kw"]
+
+[sub_resource type="Animation" id="Animation_7j8ne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.41628975, 0.41628975, 0.41628975, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0s5r2"]
+resource_name = "day_text"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 4.9666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.41628975, 0.41628975, 0.41628975, 0), Color(0.41628975, 0.41628975, 0.41628975, 1), Color(0.41628975, 0.41628975, 0.41628975, 1), Color(0.41568628, 0.41568628, 0.41568628, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7dov7"]
+_data = {
+&"RESET": SubResource("Animation_7j8ne"),
+&"day_text": SubResource("Animation_0s5r2")
+}
+
+[node name="HUD" type="CanvasLayer" unique_id=1436418283]
+
+[node name="DayText" type="Label" parent="." unique_id=700662272]
+modulate = Color(0.41628975, 0.41628975, 0.41628975, 0)
+offset_left = 480.0
+offset_top = 233.0
+offset_right = 823.6213
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "DAY"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=810288273]
+libraries/ = SubResource("AnimationLibrary_7dov7")
+
+[node name="HealthBar" type="TextureProgressBar" parent="." unique_id=164869267]
+offset_left = 44.0
+offset_top = 38.0
+offset_right = 188.87505
+offset_bottom = 76.0
+value = 50.0
+nine_patch_stretch = true
+texture_under = ExtResource("1_37rai")
+texture_over = ExtResource("2_0qrqu")
+texture_progress = ExtResource("3_mx0kw")
+tint_progress = Color(0.54595375, 0.07820349, 0.026751311, 1)

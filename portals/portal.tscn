@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bm8h3fagfk07"]
+[gd_scene format=3 uid="uid://bm8h3fagfk07"]
 
 [ext_resource type="Texture2D" uid="uid://cyvcr3ikrn41h" path="res://PORTAL BLUE-Sheet.png" id="1_0r486"]
 [ext_resource type="Script" uid="uid://ctre6m33n3pri" path="res://portal.gd" id="1_ef3v5"]
@@ -29,15 +29,15 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Portal" type="Area2D"]
+[node name="Portal" type="Area2D" unique_id=934186251]
 collision_layer = 16
 collision_mask = 3
 script = ExtResource("1_ef3v5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=112783070]
 shape = SubResource("CapsuleShape2D_ef3v5")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=365223242]
 scale = Vector2(1.8571428, 1.8571435)
 sprite_frames = SubResource("SpriteFrames_2pgh4")
 animation = &"idle"

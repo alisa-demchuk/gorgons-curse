@@ -17,8 +17,7 @@ var state = MORNING
 var day_count: int
 
 func _ready() -> void:
-	health_bar.max_value = Global.player_health
-	health_bar.value = health_bar.max_value
+	health_bar.value = Global.player_health
 	light.enabled = true 
 	day_count = 1
 	set_day_text()

@@ -57,8 +57,9 @@ func _physics_process(delta: float) -> void:
 			get_tree().change_scene_to_file("res://menu.tscn")			
 			
 		if telep == 0:
-			telep = -1
 			get_tree().change_scene_to_file("res://level_2.tscn")
+			
+
 
 
 		move_and_slide()
@@ -86,6 +87,12 @@ func move_state():
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
 		
+	if Input.is_action_just_pressed("action(потом заменить на портал)"):
+		get_tree().change_scene_to_file("res://new_level.tscn")
+		
+	if Input.is_action_just_pressed("action(перемещение к боссу, заменить на портал)"):
+		get_tree().change_scene_to_file("res://level.tscn")
+			
 func death_state ():
 	velocity.x = 0
 	animPlayer.play("death")
