@@ -1,7 +1,6 @@
 extends CharacterBody2D
 
-signal health_changed (new_health)
-	
+signal health_changed(new_health)
 
 enum {
 	MOVE,
@@ -12,25 +11,34 @@ enum {
 const SPEED = 300.0
 var JUMP_VELOCITY = -500.0
 var alive = true
-
 var max_depth = 700
 
 @onready var anim = $AnimatedSprite2D
 @onready var animPlayer = $AnimationPlayer
 
 var max_health = 100
-var health = max_health
 var gold = 0
 var telep = 1
 var state = MOVE
 var player_pos
 var damage_current = 10
 
+# ✅ Единое здоровье через Global
+var health: int:
+	get:
+		return Global.player_health
+	set(value):
+		Global.player_health = clamp(value, 0, max_health)
+		emit_signal("health_changed", Global.player_health)
+
 func _ready() -> void:
 	Signals.connect("enemy_attack", Callable(self, "_on_damage_recevied"))
 
 func _physics_process(delta: float) -> void:
-	
+	# Гравитация всегда
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
 	match state:
 		MOVE:
 			move_state()
@@ -38,38 +46,33 @@ func _physics_process(delta: float) -> void:
 			attack_state()
 		DEATH:
 			death_state()
-	
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-		
+			return  # ✅ Не выполняем остальное при смерти
 
-	if alive == true:
+	if alive:
 		if Input.is_action_just_pressed("jump") and is_on_floor():
 			velocity.y = JUMP_VELOCITY
 			animPlayer.play("jump")
 
 		if velocity.y > 0:
 			animPlayer.play("fall")
-			
+
 		if position.y >= max_depth:
-			queue_free()
-			get_tree().change_scene_to_file("res://menu.tscn")			
-			
+			# ✅ Нельзя queue_free() и потом обращаться к get_tree()
+			get_tree().change_scene_to_file("res://menu.tscn")
+			return
+
 		if telep == 0:
 			get_tree().change_scene_to_file("res://level_2.tscn")
-			
-
-
+			return
 
 		move_and_slide()
-		
+
 	player_pos = self.position
 	Signals.emit_signal("player_position_update", player_pos)
 
 func move_state():
 	var direction := Input.get_axis("left", "right")
-	
+
 	if direction:
 		velocity.x = direction * SPEED
 		if velocity.y == 0:
@@ -78,42 +81,42 @@ func move_state():
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		if velocity.y == 0:
 			animPlayer.play("idle")
+
 	if direction == -1:
-		anim.flip_h = true 
+		anim.flip_h = true
 		$AttackDirection.rotation_degrees = 180
 	elif direction == 1:
 		anim.flip_h = false
 		$AttackDirection.rotation_degrees = 0
+
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK
-		
+
 	if Input.is_action_just_pressed("action(потом заменить на портал)"):
 		get_tree().change_scene_to_file("res://new_level.tscn")
-		
+
 	if Input.is_action_just_pressed("action(перемещение к боссу, заменить на портал)"):
 		get_tree().change_scene_to_file("res://level.tscn")
-			
-func death_state ():
+
+func death_state():
 	velocity.x = 0
 	animPlayer.play("death")
 	await animPlayer.animation_finished
-	queue_free()
+	# ✅ Сначала меняем сцену, потом queue_free
 	get_tree().change_scene_to_file.bind("res://menu.tscn").call_deferred()
-		
+
 func attack_state():
 	velocity.x = 0
 	animPlayer.play("attack")
 	await animPlayer.animation_finished
 	state = MOVE
 
-func _on_damage_recevied (enemy_damage):
-	Global.player_health -= enemy_damage
-	if Global.player_health <= 0:
-		Global.player_health = 0
+func _on_damage_recevied(enemy_damage):
+	# ✅ Используем единый health
+	health -= enemy_damage
+	if health <= 0:
 		state = DEATH
-	emit_signal("health_changed", Global.player_health)
-	print(Global.player_health)
-
+	print("HP: ", health)
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	Signals.emit_signal("player_attack", damage_current)

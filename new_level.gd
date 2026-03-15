@@ -1,6 +1,7 @@
 extends Node2D
 
-@onready var health_bar = $HUD/HealthBar
+@onready var health_bar = $CanvasLayer/HealthBar
 
 func _ready() -> void:
-	health_bar.value = Global.player_health
+	if health_bar:
+		health_bar.value = Global.player_health

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="2_nmjpi"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="3_xdadj"]
 [ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="5_15wb7"]
-[ext_resource type="PackedScene" uid="uid://c6yofc17khg8b" path="res://canvas_layer.tscn" id="6_7dov7"]
+[ext_resource type="PackedScene" uid="uid://cs6c5ttihpb1" path="res://Player/stats.tscn" id="6_7dov7"]
 [ext_resource type="PackedScene" uid="uid://dw7akdxqew3ww" path="res://Mobs/mushroom.tscn" id="7_7j8ne"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdadj"]
@@ -833,6 +833,43 @@ sources/0 = SubResource("TileSetAtlasSource_xdadj")
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_n7ypv"]
 polygon = PackedVector2Array(2, 641, 1407, 643, 1406, 792, -1, 789)
 
+[sub_resource type="Animation" id="Animation_7j8ne"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.41628975, 0.41628975, 0.41628975, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_0s5r2"]
+resource_name = "day_text"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DayText:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 4.9666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.41628975, 0.41628975, 0.41628975, 0), Color(0.41628975, 0.41628975, 0.41628975, 1), Color(0.41628975, 0.41628975, 0.41628975, 1), Color(0.41568628, 0.41568628, 0.41568628, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7dov7"]
+_data = {
+&"RESET": SubResource("Animation_7j8ne"),
+&"day_text": SubResource("Animation_0s5r2")
+}
+
 [node name="level 2" type="Node2D" unique_id=287041753]
 script = ExtResource("1_0s5r2")
 
@@ -877,7 +914,22 @@ occluder = SubResource("OccluderPolygon2D_n7ypv")
 wait_time = 5.0
 autostart = true
 
-[node name="CanvasLayer" parent="." unique_id=1436418283 instance=ExtResource("6_7dov7")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1436418283]
+
+[node name="DayText" type="Label" parent="CanvasLayer" unique_id=700662272]
+modulate = Color(0.41628975, 0.41628975, 0.41628975, 0)
+offset_left = 480.0
+offset_top = 233.0
+offset_right = 823.6213
+offset_bottom = 352.0
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "DAY"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer" unique_id=810288273]
+libraries/ = SubResource("AnimationLibrary_7dov7")
+
+[node name="HealthBar" parent="CanvasLayer" unique_id=249069806 instance=ExtResource("6_7dov7")]
 
 [node name="Mobs" type="Node2D" parent="." unique_id=535122453]
 
