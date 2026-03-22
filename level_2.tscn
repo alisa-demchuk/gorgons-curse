@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="3_xdadj"]
 [ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="5_15wb7"]
 [ext_resource type="PackedScene" uid="uid://cs6c5ttihpb1" path="res://Player/stats.tscn" id="6_7dov7"]
-[ext_resource type="PackedScene" uid="uid://dw7akdxqew3ww" path="res://Mobs/mushroom.tscn" id="7_7j8ne"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdadj"]
 texture = ExtResource("2_nmjpi")
@@ -933,11 +932,13 @@ libraries/ = SubResource("AnimationLibrary_7dov7")
 
 [node name="Mobs" type="Node2D" parent="." unique_id=535122453]
 
-[node name="Mushroom" parent="Mobs" unique_id=1954839072 instance=ExtResource("7_7j8ne")]
-position = Vector2(508, 605)
+[node name="Spawner" type="Timer" parent="Mobs" unique_id=1579950010]
+wait_time = 5.0
+autostart = true
 
 [node name="Player" parent="." unique_id=1361690277 instance=ExtResource("3_xdadj")]
 position = Vector2(113, 443)
 
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
+[connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]
 [connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]

@@ -6,6 +6,8 @@ extends Node2D
 @onready var health_bar = $CanvasLayer/HealthBar
 @onready var player = $Player
 
+var mushroom_preload = preload("res://Mobs/mushroom.tscn")
+
 enum {
 	MORNING,
 	DAY,
@@ -53,3 +55,12 @@ func set_day_text():
 
 func _on_player_health_changed(new_health: Variant) -> void:
 	health_bar.value = Global.player_health
+
+
+func _on_spawner_timeout() -> void:
+	pass # Replace with function body.
+
+
+func mushroom_spawn():
+	var mushroom = mushroom_preload.instantiate()
+	mushroom.position = Vector2(randi_range(900, 1200), 625)

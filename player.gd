@@ -15,6 +15,8 @@ var max_depth = 700
 
 @onready var anim = $AnimatedSprite2D
 @onready var animPlayer = $AnimationPlayer
+@onready var health_text = $HealthText
+@onready var health_anim = $HealthAnim
 
 var max_health = 100
 var gold = 0
@@ -33,7 +35,8 @@ var health: int:
 
 func _ready() -> void:
 	Signals.connect("enemy_attack", Callable(self, "_on_damage_recevied"))
-
+	health_text.modulate.a = 0
+	
 func _physics_process(delta: float) -> void:
 	# Гравитация всегда
 	if not is_on_floor():
@@ -114,9 +117,12 @@ func attack_state():
 func _on_damage_recevied(enemy_damage):
 	# ✅ Используем единый health
 	health -= enemy_damage
+	health_text.text = str(enemy_damage)
+	health_anim.play("damage_received")
 	if health <= 0:
 		state = DEATH
 	print("HP: ", health)
+
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	Signals.emit_signal("player_attack", damage_current)
