@@ -124,5 +124,5 @@ func _on_damage_recevied(enemy_damage):
 	print("HP: ", health)
 
 
-func _on_hit_box_area_entered(area: Area2D) -> void:
+func _on_hit_box_area_entered(_area: Area2D) -> void:
 	Signals.emit_signal("player_attack", damage_current)

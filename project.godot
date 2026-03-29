@@ -24,6 +24,10 @@ config/icon="res://icon.svg"
 Signals="*res://signals.gd"
 Global="*uid://c145tuh2mciwx"
 
+[debug]
+
+gdscript/warnings/unused_signal=0
+
 [display]
 
 window/stretch/mode="canvas_items"

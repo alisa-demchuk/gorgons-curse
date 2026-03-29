@@ -7,6 +7,8 @@ signal damage_received()
 @onready var damage_text = $DamageText
 @onready var animPlayer = $AnimationPlayer
 
+var player_dmg = 0
+
 var health = 100:
 	set(value):
 		health = value
@@ -23,8 +25,12 @@ func _ready():
 		health_bar.visible = false
 
 func _on_damage_received (player_damage):
-	health -= player_damage
-	damage_text.text = str(player_damage)
+	player_dmg = player_damage
+
+
+func _on_hurt_box_area_entered(_area: Area2D) -> void:
+	health -= player_dmg
+	damage_text.text = str(player_dmg)
 	animPlayer.stop()
 	animPlayer.play("damage_text")
 	if health <= 0:

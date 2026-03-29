@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bm8h3fagfk07"]
 
-[ext_resource type="Texture2D" uid="uid://cyvcr3ikrn41h" path="res://PORTAL BLUE-Sheet.png" id="1_0r486"]
+[ext_resource type="Texture2D" uid="uid://cyvcr3ikrn41h" path="res://assets/PORTAL BLUE-Sheet.png" id="1_0r486"]
 [ext_resource type="Script" uid="uid://ctre6m33n3pri" path="res://portal.gd" id="1_ef3v5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ef3v5"]

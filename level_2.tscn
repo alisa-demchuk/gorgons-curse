@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cdnwkk5vtyrac"]
 
 [ext_resource type="Script" uid="uid://hck2na3sebew" path="res://level_2.gd" id="1_0s5r2"]
-[ext_resource type="Texture2D" uid="uid://bnu6pon6q4qcc" path="res://oak_woods_v1.0/bg_3.png" id="1_jg0dc"]
+[ext_resource type="Texture2D" uid="uid://bnu6pon6q4qcc" path="res://assets/bg_3.png" id="1_jg0dc"]
 [ext_resource type="PackedScene" uid="uid://bofpbmu0qddv" path="res://Build/shop.tscn" id="2_1y8me"]
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="2_nmjpi"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="3_xdadj"]
@@ -933,7 +933,7 @@ libraries/ = SubResource("AnimationLibrary_7dov7")
 [node name="Mobs" type="Node2D" parent="." unique_id=535122453]
 
 [node name="Spawner" type="Timer" parent="Mobs" unique_id=1579950010]
-wait_time = 5.0
+wait_time = 20.0
 autostart = true
 
 [node name="Player" parent="." unique_id=1361690277 instance=ExtResource("3_xdadj")]

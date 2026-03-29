@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://c6auumaw0ithe"]
 
-[ext_resource type="Texture2D" uid="uid://hovqhu64pvf2" path="res://bg2.jpg" id="1_hbghi"]
+[ext_resource type="Texture2D" uid="uid://hovqhu64pvf2" path="res://assets/bg2.jpg" id="1_hbghi"]
 [ext_resource type="Script" uid="uid://bnisg3vbrdr6x" path="res://level_1.gd" id="1_j7kpp"]
-[ext_resource type="Texture2D" uid="uid://d0u3j7n3a87ht" path="res://Base-01.png" id="2_hn12h"]
+[ext_resource type="Texture2D" uid="uid://d0u3j7n3a87ht" path="res://assets/Base-01.png" id="2_hn12h"]
 [ext_resource type="PackedScene" uid="uid://33dayhest6xa" path="res://Collectibles/gold.tscn" id="4_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="4_rka8t"]
 [ext_resource type="PackedScene" uid="uid://bm8h3fagfk07" path="res://portals/portal.tscn" id="5_rka8t"]

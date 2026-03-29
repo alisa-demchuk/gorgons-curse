@@ -36,15 +36,17 @@ func _on_day_night_timeout() -> void:
 	match state:
 		MORNING:
 			morning_state()
+			state = DAY
+		DAY:
+			state = EVENING
 		EVENING:
 			evening_state()
-	if state < 3:
-		state += 1
-	else:
-		state = MORNING
-		day_count += 1
-		set_day_text()
-		day_text_fade()
+			state = NIGHT
+		NIGHT:
+			state = MORNING
+			day_count += 1
+			set_day_text()
+			day_text_fade()
 		
 func day_text_fade():
 		animPlayer.play("day_text")
@@ -53,14 +55,15 @@ func set_day_text():
 	day_text.text = "DAY " + str(day_count)
 
 
-func _on_player_health_changed(new_health: Variant) -> void:
+func _on_player_health_changed(_new_health: Variant) -> void:
 	health_bar.value = Global.player_health
 
 
 func _on_spawner_timeout() -> void:
-	pass # Replace with function body.
+	mushroom_spawn()
 
 
 func mushroom_spawn():
 	var mushroom = mushroom_preload.instantiate()
 	mushroom.position = Vector2(randi_range(900, 1200), 625)
+	$Mobs.add_child(mushroom)

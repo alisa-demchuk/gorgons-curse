@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dw7akdxqew3ww"]
+[gd_scene format=3 uid="uid://dw7akdxqew3ww"]
 
 [ext_resource type="Script" uid="uid://duo3guem2yyb8" path="res://Mobs/mushroom.gd" id="1_selrt"]
 [ext_resource type="Texture2D" uid="uid://bh0d5havxwfrb" path="res://Monsters_Creatures_Fantasy/Mushroom/Attack.png" id="1_sjuu0"]
@@ -570,41 +570,39 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_selrt"]
 size = Vector2(19, 23)
 
-[node name="Mushroom" type="CharacterBody2D"]
+[node name="Mushroom" type="CharacterBody2D" unique_id=683190284]
 collision_layer = 4
 script = ExtResource("1_selrt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1543249144]
 visible = false
 shape = SubResource("CapsuleShape2D_768lt")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1586097190]
 position = Vector2(1, -11)
 scale = Vector2(1.16, 1.1600001)
 sprite_frames = SubResource("SpriteFrames_jq103")
 animation = &"idle"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_768lt")
-}
-autoplay = "idle"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=676962525]
+libraries/ = SubResource("AnimationLibrary_768lt")
+autoplay = &"idle"
 
-[node name="AttackDirection" type="Node2D" parent="."]
+[node name="AttackDirection" type="Node2D" parent="." unique_id=1299478889]
 
-[node name="AttackRange" type="Area2D" parent="AttackDirection"]
+[node name="AttackRange" type="Area2D" parent="AttackDirection" unique_id=1590729140]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirection/AttackRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirection/AttackRange" unique_id=1289944585]
 position = Vector2(21.5, 0.5)
 shape = SubResource("RectangleShape2D_selrt")
 
-[node name="DamageBox" parent="AttackDirection" instance=ExtResource("7_ufykn")]
+[node name="DamageBox" parent="AttackDirection" unique_id=235665652 instance=ExtResource("7_ufykn")]
 
 [node name="HurtBox" parent="AttackDirection/DamageBox" index="0"]
 collision_layer = 64
-collision_mask = 0
+collision_mask = 128
 
 [node name="CollisionShape2D" parent="AttackDirection/DamageBox/HurtBox" index="0"]
 position = Vector2(1, 0)
@@ -613,11 +611,12 @@ position = Vector2(1, 0)
 collision_layer = 0
 collision_mask = 32
 
-[node name="MobHealth" parent="." instance=ExtResource("8_xshu0")]
+[node name="MobHealth" parent="." unique_id=538112887 instance=ExtResource("8_xshu0")]
 position = Vector2(1, -29)
 scale = Vector2(0.17, 0.17)
 
 [connection signal="body_entered" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_entered"]
+[connection signal="area_entered" from="AttackDirection/DamageBox/HurtBox" to="MobHealth" method="_on_hurt_box_area_entered"]
 [connection signal="area_entered" from="AttackDirection/DamageBox/HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="damage_received" from="MobHealth" to="." method="_on_mob_health_damage_received"]
 [connection signal="no_health" from="MobHealth" to="." method="_on_mob_health_no_health"]

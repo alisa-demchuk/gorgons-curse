@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cyvcr3ikrn41h"
-path="res://.godot/imported/PORTAL BLUE-Sheet.png-6b597fbeaea5c525b29e13ea5f04d81b.ctex"
+uid="uid://d0u3j7n3a87ht"
+path="res://.godot/imported/Base-01.png-2cba80c492b620e1af02525749dfd39d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://PORTAL BLUE-Sheet.png"
-dest_files=["res://.godot/imported/PORTAL BLUE-Sheet.png-6b597fbeaea5c525b29e13ea5f04d81b.ctex"]
+source_file="res://assets/Base-01.png"
+dest_files=["res://.godot/imported/Base-01.png-2cba80c492b620e1af02525749dfd39d.ctex"]
 
 [params]
 

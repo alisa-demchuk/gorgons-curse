@@ -629,7 +629,7 @@ collision_layer = 32
 collision_mask = 0
 
 [node name="HitBox" parent="AttackDirection/DamageBox" index="1"]
-collision_layer = 0
+collision_layer = 128
 collision_mask = 64
 
 [node name="HealthText" type="Label" parent="." unique_id=400046386]
