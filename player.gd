@@ -5,7 +5,8 @@ signal health_changed(new_health)
 enum {
 	MOVE,
 	ATTACK,
-	DEATH
+	DEATH,
+	DAMAGE
 }
 
 const SPEED = 300.0
@@ -50,6 +51,8 @@ func _physics_process(delta: float) -> void:
 		DEATH:
 			death_state()
 			return  # ✅ Не выполняем остальное при смерти
+		DAMAGE:
+			damage_state()
 
 	if alive:
 		if Input.is_action_just_pressed("jump") and is_on_floor():
@@ -107,6 +110,10 @@ func death_state():
 	# ✅ Сначала меняем сцену, потом queue_free
 	get_tree().change_scene_to_file.bind("res://menu.tscn").call_deferred()
 
+func damage_state():
+	velocity.x = 0
+	state = MOVE
+
 func attack_state():
 	velocity.x = 0
 	animPlayer.play("attack")
@@ -114,7 +121,8 @@ func attack_state():
 	state = MOVE
 
 func _on_damage_recevied(enemy_damage):
-	# ✅ Используем единый health
+	state = DAMAGE
+	damage_anim()
 	health -= enemy_damage
 	health_text.text = str(enemy_damage)
 	health_text.modulate.a = 1
@@ -122,3 +130,11 @@ func _on_damage_recevied(enemy_damage):
 	if health <= 0:
 		state = DEATH
 	print("HP: ", health)
+
+func damage_anim():
+	if $AnimatedSprite2D.flip_h == true:
+		velocity.x += 200
+	else:
+		velocity.x -= 200
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(self, "velocity", Vector2(0,0), 0.2)
