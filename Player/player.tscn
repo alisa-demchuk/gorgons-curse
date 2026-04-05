@@ -633,7 +633,6 @@ collision_layer = 128
 collision_mask = 64
 
 [node name="HealthText" type="Label" parent="." unique_id=400046386]
-visible = false
 offset_left = -29.0
 offset_top = -38.0
 offset_right = 35.34783

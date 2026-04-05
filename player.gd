@@ -22,7 +22,6 @@ var max_health = 100
 var gold = 0
 var telep = 1
 var state = MOVE
-var player_pos
 var damage_current = 10
 
 # ✅ Единое здоровье через Global
@@ -35,6 +34,7 @@ var health: int:
 
 func _ready() -> void:
 	Signals.connect("enemy_attack", Callable(self, "_on_damage_recevied"))
+	Global.player_damage = damage_current
 	health_text.modulate.a = 0
 	
 func _physics_process(delta: float) -> void:
@@ -70,8 +70,7 @@ func _physics_process(delta: float) -> void:
 
 		move_and_slide()
 
-	player_pos = self.position
-	Signals.emit_signal("player_position_update", player_pos)
+	Global.player_pos = self.position
 
 func move_state():
 	var direction := Input.get_axis("left", "right")
@@ -118,11 +117,8 @@ func _on_damage_recevied(enemy_damage):
 	# ✅ Используем единый health
 	health -= enemy_damage
 	health_text.text = str(enemy_damage)
+	health_text.modulate.a = 1
 	health_anim.play("damage_received")
 	if health <= 0:
 		state = DEATH
 	print("HP: ", health)
-
-
-func _on_hit_box_area_entered(_area: Area2D) -> void:
-	Signals.emit_signal("player_attack", damage_current)

@@ -31,9 +31,6 @@ var damage = 20
 
 
 
-func _ready():
-	Signals.connect("player_position_update", Callable(self, "_on_player_position_update"))
-
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -45,8 +42,8 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func _on_player_position_update (player_pos):
-	player = player_pos
+
+	player = Global.player_pos
 	
 func _on_attack_range_body_entered(_body: Node2D) -> void:
 	state = ATTACK
