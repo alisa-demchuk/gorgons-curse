@@ -112,6 +112,15 @@ func death_state():
 
 func damage_state():
 	velocity.x = 0
+	self.modulate = Color(1,0,0,1)
+	if $AnimatedSprite2D.flip_h == true:
+		velocity.x += 600
+	else:
+		velocity.x -= 600
+	var tween = get_tree().create_tween()
+	tween.parallel().tween_property(self, "velocity", Vector2(0,0), 0.1)
+	tween.parallel().tween_property(self, "modulate", Color(1,1,1,1), 0.1)
+
 	state = MOVE
 
 func attack_state():
@@ -122,7 +131,7 @@ func attack_state():
 
 func _on_damage_recevied(enemy_damage):
 	state = DAMAGE
-	damage_anim()
+	#damage_anim()
 	health -= enemy_damage
 	health_text.text = str(enemy_damage)
 	health_text.modulate.a = 1
@@ -131,10 +140,10 @@ func _on_damage_recevied(enemy_damage):
 		state = DEATH
 	print("HP: ", health)
 
-func damage_anim():
-	if $AnimatedSprite2D.flip_h == true:
-		velocity.x += 200
-	else:
-		velocity.x -= 200
-	var tween = get_tree().create_tween()
-	tween.parallel().tween_property(self, "velocity", Vector2(0,0), 0.2)
+#func damage_anim():
+#	if $AnimatedSprite2D.flip_h == true:
+#		velocity.x += 200
+#	else:
+#		velocity.x -= 200
+#	var tween = get_tree().create_tween()
+#	tween.parallel().tween_property(self, "velocity", Vector2(0,0), 0.2)

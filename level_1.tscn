@@ -2,10 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://hovqhu64pvf2" path="res://assets/bg2.jpg" id="1_hbghi"]
 [ext_resource type="Script" uid="uid://bnisg3vbrdr6x" path="res://level_1.gd" id="1_j7kpp"]
+[ext_resource type="Script" uid="uid://cusr2hm2nysni" path="res://manager_1.gd" id="2_bjebc"]
 [ext_resource type="Texture2D" uid="uid://d0u3j7n3a87ht" path="res://assets/Base-01.png" id="2_hn12h"]
 [ext_resource type="PackedScene" uid="uid://33dayhest6xa" path="res://Collectibles/gold.tscn" id="4_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="4_rka8t"]
 [ext_resource type="PackedScene" uid="uid://bm8h3fagfk07" path="res://portals/portal.tscn" id="5_rka8t"]
+[ext_resource type="PackedScene" uid="uid://xlf5x80ni5bo" path="res://UI/pause_menu.tscn" id="7_j7kpp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hn12h"]
 texture = ExtResource("2_hn12h")
@@ -739,6 +741,10 @@ func _process(_delta: float) -> void:
 [node name="level 1" type="Node2D" unique_id=1514597153]
 script = ExtResource("1_j7kpp")
 
+[node name="Manager1" type="Node" parent="." unique_id=880526679]
+process_mode = 3
+script = ExtResource("2_bjebc")
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="." unique_id=280345396]
 
 [node name="Bg2" type="Sprite2D" parent="ParallaxBackground" unique_id=2091158017]
@@ -807,3 +813,25 @@ offset_bottom = 115.0
 theme_override_font_sizes/font_size = 30
 text = "Gold"
 script = SubResource("GDScript_rka8t")
+
+[node name="PauseMenu" parent="CanvasLayer" unique_id=227493609 instance=ExtResource("7_j7kpp")]
+process_mode = 2
+
+[node name="MenuButton" type="Button" parent="CanvasLayer" unique_id=245179251]
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -168.0
+offset_top = 12.0
+offset_right = -66.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 22
+text = "Menu"
+
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager1" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Quit" to="Manager1" method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="Manager1" method="_on_menu_button_pressed"]
+
+[editable path="CanvasLayer/PauseMenu"]

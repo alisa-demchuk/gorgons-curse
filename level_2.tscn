@@ -3,10 +3,12 @@
 [ext_resource type="Script" uid="uid://hck2na3sebew" path="res://level_2.gd" id="1_0s5r2"]
 [ext_resource type="Texture2D" uid="uid://bnu6pon6q4qcc" path="res://assets/bg_3.png" id="1_jg0dc"]
 [ext_resource type="PackedScene" uid="uid://bofpbmu0qddv" path="res://Build/shop.tscn" id="2_1y8me"]
+[ext_resource type="Script" uid="uid://3jq5eeucf8lc" path="res://manager.gd" id="2_ehv2h"]
 [ext_resource type="Texture2D" uid="uid://mlpy3j0tip6y" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/oak_woods_tileset.png" id="2_nmjpi"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="3_xdadj"]
 [ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="5_15wb7"]
 [ext_resource type="PackedScene" uid="uid://cs6c5ttihpb1" path="res://Player/stats.tscn" id="6_7dov7"]
+[ext_resource type="PackedScene" uid="uid://xlf5x80ni5bo" path="res://UI/pause_menu.tscn" id="7_7dov7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdadj"]
 texture = ExtResource("2_nmjpi")
@@ -872,6 +874,10 @@ _data = {
 [node name="level 2" type="Node2D" unique_id=287041753]
 script = ExtResource("1_0s5r2")
 
+[node name="Manager" type="Node" parent="." unique_id=808874847]
+process_mode = 3
+script = ExtResource("2_ehv2h")
+
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=750720636]
 
 [node name="Bg3" type="Sprite2D" parent="Parallax2D" unique_id=913701434]
@@ -914,6 +920,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1436418283]
+layer = 2
 
 [node name="DayText" type="Label" parent="CanvasLayer" unique_id=700662272]
 modulate = Color(0.41628975, 0.41628975, 0.41628975, 0)
@@ -930,6 +937,22 @@ libraries/ = SubResource("AnimationLibrary_7dov7")
 
 [node name="HealthBar" parent="CanvasLayer" unique_id=249069806 instance=ExtResource("6_7dov7")]
 
+[node name="PauseMenu" parent="CanvasLayer" unique_id=227493609 instance=ExtResource("7_7dov7")]
+process_mode = 2
+
+[node name="MenuButton" type="Button" parent="CanvasLayer" unique_id=1798848995]
+process_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -146.0
+offset_top = 12.0
+offset_right = -44.0
+offset_bottom = 64.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 22
+text = "Menu"
+
 [node name="Mobs" type="Node2D" parent="." unique_id=535122453]
 
 [node name="Spawner" type="Timer" parent="Mobs" unique_id=1579950010]
@@ -940,5 +963,10 @@ autostart = true
 position = Vector2(113, 443)
 
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Quit" to="Manager" method="_on_quit_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuButton" to="Manager" method="_on_menu_button_pressed"]
 [connection signal="timeout" from="Mobs/Spawner" to="." method="_on_spawner_timeout"]
 [connection signal="health_changed" from="Player" to="." method="_on_player_health_changed"]
+
+[editable path="CanvasLayer/PauseMenu"]
