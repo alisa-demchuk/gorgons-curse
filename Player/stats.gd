@@ -1,7 +1,7 @@
 extends TextureProgressBar
 
-@onready var health_text = $"../HealthText"
-@onready var health_anim = $"../HealthAnim"
+#@onready var health_text = $"../HealthText"
+#@onready var health_anim = $"../HealthAnim"
 
 func _ready() -> void:
 	self.value = Global.player_health

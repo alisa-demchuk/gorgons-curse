@@ -7,7 +7,7 @@ signal damage_received()
 @onready var damage_text = $DamageText
 @onready var animPlayer = $AnimationPlayer
 
-
+@export var max_healt = 100
 
 var health = 100:
 	set(value):
@@ -21,7 +21,8 @@ var health = 100:
 func _ready():
 		#Signals.connect("player_attack", Callable(self, "_on_damage_received"))
 		damage_text.modulate.a = 0
-		health_bar.max_value = health
+		health_bar.max_value = max_healt
+		health = max_healt
 		health_bar.visible = false
 
 #func _on_damage_received (player_damage):
