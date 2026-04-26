@@ -84,7 +84,10 @@ func death_state():
 func recover_state():
 	animPlayer.play("recover")
 	await animPlayer.animation_finished
-	state = IDLE
+	if $AttackDirection/AttackRange.has_overlapping_bodies():
+		state = ATTACK
+	else:
+		state = IDLE
 
 func _on_hit_box_area_entered(_area: Area2D) -> void:
 	Signals.emit_signal("enemy_attack", damage)
