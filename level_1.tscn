@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://33dayhest6xa" path="res://Collectibles/gold.tscn" id="4_ihfcg"]
 [ext_resource type="PackedScene" uid="uid://bvyoybt8licco" path="res://Player/player.tscn" id="4_rka8t"]
 [ext_resource type="PackedScene" uid="uid://bm8h3fagfk07" path="res://portals/portal.tscn" id="5_rka8t"]
+[ext_resource type="Script" uid="uid://c6m41o14cola5" path="res://Collectibles/gold.gd" id="6_gyffv"]
+[ext_resource type="Texture2D" uid="uid://cm708u4wo735u" path="res://Coin/Sheet/coin-Sheet.png" id="7_1pe0h"]
 [ext_resource type="PackedScene" uid="uid://xlf5x80ni5bo" path="res://UI/pause_menu.tscn" id="7_j7kpp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hn12h"]
@@ -710,6 +712,76 @@ texture = ExtResource("2_hn12h")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_hn12h")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_finrr"]
+size = Vector2(10, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_finrr"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_naxcj"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_63koj"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_symft"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_33w3g"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8noh"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_olc4a"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yuu1r"]
+atlas = ExtResource("7_1pe0h")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_giscw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_finrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_naxcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_63koj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_symft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_33w3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8noh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_olc4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yuu1r")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_finrr"]
+radius = 6.0827627
+
 [sub_resource type="GDScript" id="GDScript_ihfcg"]
 script/source = "extends Label
 
@@ -761,8 +833,29 @@ position = Vector2(120, 555)
 
 [node name="Collectibles" type="Node2D" parent="." unique_id=1209831214]
 
-[node name="Gold" parent="Collectibles" unique_id=743959990 instance=ExtResource("4_ihfcg")]
+[node name="Gold" type="CharacterBody2D" parent="Collectibles" unique_id=743959990]
 position = Vector2(360, 439)
+collision_layer = 0
+script = ExtResource("6_gyffv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Gold" unique_id=811871774]
+shape = SubResource("RectangleShape2D_finrr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Collectibles/Gold" unique_id=2022890984]
+position = Vector2(0.5, -0.5)
+scale = Vector2(0.84375, 0.7926136)
+sprite_frames = SubResource("SpriteFrames_giscw")
+animation = &"idle"
+autoplay = "idle"
+frame = 6
+frame_progress = 0.025627352
+
+[node name="Detector" type="Area2D" parent="Collectibles/Gold" unique_id=379188777]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Gold/Detector" unique_id=1350712658]
+shape = SubResource("CircleShape2D_finrr")
 
 [node name="Gold2" parent="Collectibles" unique_id=730535484 instance=ExtResource("4_ihfcg")]
 position = Vector2(249, 519)
@@ -831,6 +924,7 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 22
 text = "Menu"
 
+[connection signal="body_entered" from="Collectibles/Gold/Detector" to="Collectibles/Gold" method="_on_detector_body_entered"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager1" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Save" to="Manager1" method="_on_save_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Load" to="Manager1" method="_on_load_pressed"]

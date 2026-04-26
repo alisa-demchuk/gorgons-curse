@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://c6m41o14cola5" path="res://Collectibles/gold.gd" id="1_finrr"]
 [ext_resource type="Texture2D" uid="uid://cm708u4wo735u" path="res://Coin/Sheet/coin-Sheet.png" id="1_sikt3"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xj8c6"]
-radius = 7.071068
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_finrr"]
+size = Vector2(10, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_finrr"]
 atlas = ExtResource("1_sikt3")
@@ -73,13 +73,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_finrr"]
 radius = 6.0827627
 
-[node name="Gold" type="Area2D" unique_id=666076503]
-collision_layer = 8
-collision_mask = 3
+[node name="Coin" type="CharacterBody2D" unique_id=621696734]
+collision_layer = 0
 script = ExtResource("1_finrr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=811871774]
-shape = SubResource("CircleShape2D_xj8c6")
+shape = SubResource("RectangleShape2D_finrr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2022890984]
 position = Vector2(0.5, -0.5)
@@ -87,14 +86,14 @@ scale = Vector2(0.84375, 0.7926136)
 sprite_frames = SubResource("SpriteFrames_giscw")
 animation = &"idle"
 autoplay = "idle"
-frame = 1
-frame_progress = 0.80982673
+frame = 6
+frame_progress = 0.025627352
 
 [node name="Detector" type="Area2D" parent="." unique_id=379188777]
-collision_layer = 8
+collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=1350712658]
 shape = SubResource("CircleShape2D_finrr")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Detector" to="." method="_on_detector_body_entered"]

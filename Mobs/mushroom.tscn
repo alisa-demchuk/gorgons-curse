@@ -626,6 +626,7 @@ collision_mask = 32
 [node name="MobHealth" parent="." unique_id=538112887 instance=ExtResource("8_xshu0")]
 position = Vector2(1, -29)
 scale = Vector2(0.17, 0.17)
+max_healt = 20
 
 [connection signal="body_entered" from="AttackDirection/AttackRange" to="." method="_on_attack_range_body_entered"]
 [connection signal="area_entered" from="AttackDirection/DamageBox/HurtBox" to="MobHealth" method="_on_hurt_box_area_entered"]

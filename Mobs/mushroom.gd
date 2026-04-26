@@ -76,6 +76,7 @@ func damage_state():
 	state = IDLE
 	
 func death_state():
+	Signals.emit_signal("enemy_died", position)
 	animPlayer.play("death")
 	await animPlayer.animation_finished
 	queue_free()

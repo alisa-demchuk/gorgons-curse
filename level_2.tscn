@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="5_15wb7"]
 [ext_resource type="PackedScene" uid="uid://cs6c5ttihpb1" path="res://Player/stats.tscn" id="6_7dov7"]
 [ext_resource type="PackedScene" uid="uid://xlf5x80ni5bo" path="res://UI/pause_menu.tscn" id="7_7dov7"]
+[ext_resource type="PackedScene" uid="uid://33dayhest6xa" path="res://Collectibles/gold.tscn" id="10_15wb7"]
+[ext_resource type="Script" uid="uid://dqbpjqhmwukmf" path="res://collectibles.gd" id="10_eoq84"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xdadj"]
 texture = ExtResource("2_nmjpi")
@@ -960,7 +962,13 @@ wait_time = 20.0
 autostart = true
 
 [node name="Player" parent="." unique_id=1361690277 instance=ExtResource("3_xdadj")]
-position = Vector2(113, 443)
+position = Vector2(193, 561)
+
+[node name="Collectibles" type="Node2D" parent="." unique_id=1069685760]
+script = ExtResource("10_eoq84")
+
+[node name="Gold" parent="Collectibles" unique_id=666076503 instance=ExtResource("10_15wb7")]
+position = Vector2(292, 559)
 
 [connection signal="timeout" from="DayNight" to="." method="_on_day_night_timeout"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/Panel/VBoxContainer/Resume" to="Manager" method="_on_resume_pressed"]
