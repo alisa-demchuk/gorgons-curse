@@ -19,6 +19,7 @@ var state = MORNING
 var day_count: int
 
 func _ready() -> void:
+	Global.gold = 0
 	health_bar.value = Global.player_health
 	light.enabled = true 
 	day_count = 1
@@ -47,6 +48,8 @@ func _on_day_night_timeout() -> void:
 			day_count += 1
 			set_day_text()
 			day_text_fade()
+			
+	Signals.emit_signal("day_time", state)
 		
 func day_text_fade():
 		animPlayer.play("day_text")

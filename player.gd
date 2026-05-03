@@ -18,9 +18,10 @@ var max_depth = 700
 @onready var animPlayer = $AnimationPlayer
 @onready var health_text = $HealthText
 @onready var health_anim = $HealthAnim
+@onready var leaves: GPUParticles2D = $Leaves
+
 
 var max_health = 100
-var gold = 0
 var telep = 1
 var state = MOVE
 var damage_current = 10
@@ -39,6 +40,7 @@ func _ready() -> void:
 	health_text.modulate.a = 0
 	
 func _physics_process(delta: float) -> void:
+	var current_scene = get_tree().current_scene
 	# Гравитация всегда
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -147,3 +149,7 @@ func _on_damage_recevied(enemy_damage):
 #		velocity.x -= 200
 #	var tween = get_tree().create_tween()
 #	tween.parallel().tween_property(self, "velocity", Vector2(0,0), 0.2)
+
+func steps():
+	leaves.emitting = true
+	leaves.one_shot = true

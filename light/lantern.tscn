@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c1aryp6am25vq"]
+
+[ext_resource type="Texture2D" uid="uid://dmq68q6k02jvg" path="res://assets/circle.png" id="1_ik1op"]
+[ext_resource type="Script" uid="uid://cevtfaog7qi3u" path="res://light/lantern.gd" id="2_1ghoy"]
+
+[node name="Lantern" type="PointLight2D" unique_id=879076015]
+scale = Vector2(0.16, 0.16)
+color = Color(0.99215686, 0.89411765, 0.80784315, 1)
+energy = 1.5
+texture = ExtResource("1_ik1op")
+script = ExtResource("2_1ghoy")
+
+[node name="Timer" type="Timer" parent="." unique_id=1426377900]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

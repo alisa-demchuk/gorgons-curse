@@ -33,11 +33,13 @@ func _on_menu_button_pressed() -> void:
 
 func save_game():
 	var file = FileAccess.open(save_path, FileAccess.WRITE)
+	file.store_var(Global.gold)
 	file.store_var(player.position.x)
 	file.store_var(player.position.y)
 	
 func load_game():
 	var file = FileAccess.open(save_path, FileAccess.READ)
+	Global.gold = file.get_var(Global.gold)
 	player.position.x = file.get_var(player.position.x)
 	player.position.y = file.get_var(player.position.y)
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bofpbmu0qddv"]
+[gd_scene format=3 uid="uid://bofpbmu0qddv"]
 
 [ext_resource type="Texture2D" uid="uid://divbpk2gq5quk" path="res://oak_woods_v1.0/oak_woods_v1.0/decorations/shop_anim.png" id="1_lpta5"]
+[ext_resource type="PackedScene" uid="uid://c1aryp6am25vq" path="res://light/lantern.tscn" id="2_jxx1l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jxx1l"]
 radius = 46.09772
@@ -55,15 +56,27 @@ animations = [{
 "speed": 8.0
 }]
 
-[node name="shop" type="Area2D"]
+[node name="shop" type="Area2D" unique_id=1345677663]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=845953042]
 shape = SubResource("CircleShape2D_jxx1l")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1214765139]
 position = Vector2(3, -39)
 scale = Vector2(1.8474576, 1.8474576)
 sprite_frames = SubResource("SpriteFrames_khgxt")
 autoplay = "default"
 frame = 5
 frame_progress = 0.53730094
+
+[node name="Lantern" parent="." unique_id=879076015 instance=ExtResource("2_jxx1l")]
+position = Vector2(95, 24)
+scale = Vector2(0.2725, 0.2725)
+color = Color(0.99215686, 0.89411765, 0.80784315, 1)
+energy = 1.5
+
+[node name="Lantern2" parent="." unique_id=1736286550 instance=ExtResource("2_jxx1l")]
+position = Vector2(-86, 24)
+scale = Vector2(0.2725, 0.2725)
+color = Color(0.99215686, 0.89411765, 0.80784315, 1)
+energy = 1.5

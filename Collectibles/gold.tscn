@@ -86,8 +86,7 @@ scale = Vector2(0.84375, 0.7926136)
 sprite_frames = SubResource("SpriteFrames_giscw")
 animation = &"idle"
 autoplay = "idle"
-frame = 6
-frame_progress = 0.025627352
+frame_progress = 0.40935597
 
 [node name="Detector" type="Area2D" parent="." unique_id=379188777]
 collision_layer = 0

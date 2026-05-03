@@ -40,6 +40,10 @@ enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
 
 import/fbx2gltf/enabled=false
 
+[gui]
+
+theme/custom="uid://c7wwgniuvjugs"
+
 [input]
 
 left={
